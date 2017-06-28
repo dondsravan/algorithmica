@@ -2,7 +2,7 @@ package com.algorithmica.assignment.three;
 
 public class SplitAndCombine {
 
-	public ListNode splitAndCombine(ListNode head) {
+	public ListNode splitAndCombine1(ListNode head) {
 
 		int length = 0;
 		ListNode current = head, tmp;
@@ -24,6 +24,29 @@ public class SplitAndCombine {
 		while (tmp.next != null)
 			tmp = tmp.next;
 		tmp.next = current;
+
+		return head;
+	}
+
+	public ListNode splitAndCombine2(ListNode head) {
+
+		if (head == null) {
+			return head;
+		}
+		ListNode fast = head;
+		ListNode slow = head;
+
+		while (fast.next != null) {
+			fast = fast.next;
+			if (fast.next != null) {
+				fast = fast.next;
+				slow = slow.next;
+			}
+		}
+
+		fast.next = head;
+		head = slow.next;
+		slow.next = null;
 
 		return head;
 	}

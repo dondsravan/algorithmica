@@ -38,7 +38,7 @@ public class BinaryTreeUtils {
 		return root;
 	}
 
-	public static void displayLevelTree(TreeNode root) {
+	public static void displayTree(TreeNode root) {
 		if (root == null)
 			System.out.println("Tree is empty");
 		Queue<TreeNode> queue = new LinkedList<TreeNode>();
@@ -69,7 +69,17 @@ public class BinaryTreeUtils {
 		}
 	}
 
-	public static void displayTree(TreeNode root) {
+	private static void auxDisplayLevelTree(TreeNode root, int level) {
+		if (root == null)
+			return;
+		for (int i = 0; i < level; ++i)
+			System.out.print(' ');
+		System.out.println(root.data);
+		auxDisplayLevelTree(root.left, level + 4);
+		auxDisplayLevelTree(root.right, level + 4);
+	}
 
+	public static void displayLevelTree(TreeNode root) {
+		auxDisplayLevelTree(root, 0);
 	}
 }

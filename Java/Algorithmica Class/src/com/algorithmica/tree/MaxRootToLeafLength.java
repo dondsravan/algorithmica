@@ -3,11 +3,11 @@ package com.algorithmica.tree;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class TreeDepth {
+public class MaxRootToLeafLength {
 
 	// RECURSION
-	// Space Complexity - O(n)
 	// Time Complexity - O(n)
+	// Space Complexity - O(n)
 	public static int treeDepth1(TreeNode root) {
 		if (root == null)
 			return 0;
@@ -19,8 +19,8 @@ public class TreeDepth {
 	}
 
 	// Using QUEUE
-	// Space Complexity - <=(n/2) - O(n)
-	// Time Complexity - O(n)
+	// Time Complexity - <=(n/2) - O(n)
+	// Space Complexity - O(n)
 	public static int treeDepth2(TreeNode root) {
 		if (root == null)
 			return 0;
@@ -50,7 +50,6 @@ public class TreeDepth {
 
 		TreeNode root = BinaryTreeUtils.createBinaryTree(Integer.parseInt(args[0]));
 		BinaryTreeUtils.displayLevelTree(root);
-		System.out.println(treeDepth1(root));
-		System.out.println(treeDepth2(root));
+		System.out.println("\nDepth: " + treeDepth2(root));
 	}
 }
