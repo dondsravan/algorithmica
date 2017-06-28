@@ -9,16 +9,8 @@ public class ListNode {
 	private ListNode next;
 	private LinkedHashSet<Integer> keys;
 
-	protected ListNode() {
-		this.prev = new ListNode();
-		this.next = new ListNode();
-		this.keys = new LinkedHashSet<>();
-	}
-
 	protected ListNode(Integer frequency) {
 		this.frequency = frequency;
-		this.prev = new ListNode();
-		this.next = new ListNode();
 		this.keys = new LinkedHashSet<>();
 	}
 
@@ -26,8 +18,8 @@ public class ListNode {
 		this.keys.add(key);
 	}
 
-	protected void removeKey(Integer key) {
-		this.keys.remove(key);
+	protected boolean removeKey(Integer key) {
+		return this.keys.remove(key);
 	}
 
 	protected LinkedHashSet<Integer> getAllKeys() {

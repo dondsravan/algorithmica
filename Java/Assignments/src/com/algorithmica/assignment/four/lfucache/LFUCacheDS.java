@@ -4,39 +4,74 @@ import java.util.HashMap;
 
 public class LFUCacheDS {
 
-	private int cacheSize;
+	private int maxCacheSize;
+	private int currentCacheSize;
 	private HashMap<Integer, Integer> keyValuePairs;
 	private HashMap<Integer, ListNode> frequencyNodes;
 	private ListNode head;
 
-	public LFUCacheDS(int cacheSize) {
-		this.cacheSize = cacheSize;
-		this.keyValuePairs = new HashMap<>();
-		this.frequencyNodes = new HashMap<>();
-		this.head = null;
+	protected LFUCacheDS(int cacheSize) {
+		maxCacheSize = cacheSize;
+		keyValuePairs = new HashMap<>();
+		frequencyNodes = new HashMap<>();
+		head = null;
 	}
 
-	public void putKeyValue(Integer key, Integer value) {
-		this.keyValuePairs.put(key, value);
+	protected void clearCache() {
+		currentCacheSize = 0;
+		keyValuePairs.clear();
+		frequencyNodes.clear();
+		head = null;
 	}
 
-	public Integer getValue(Integer key) {
-		return this.keyValuePairs.get(key);
+	protected void putKeyValue(Integer key, Integer value) {
+		if (!isKeyAvailable(key))
+			++currentCacheSize;
+		keyValuePairs.put(key, value);
 	}
 
-	public void setFrequencyNode(Integer key, ListNode node) {
-		this.frequencyNodes.put(key, node);
+	protected Integer getValue(Integer key) {
+		return keyValuePairs.get(key);
 	}
 
-	public ListNode getFrequencyNode(Integer key) {
-		return this.frequencyNodes.get(key);
+	protected boolean isKeyAvailable(Integer key) {
+		return keyValuePairs.containsKey(key);
 	}
 
-	public ListNode getHeadNode() {
-		return this.head;
+	protected void removeKeyValuePair(Integer key) {
+		if (keyValuePairs.remove(key) != null)
+			--currentCacheSize;
 	}
 
-	public boolean isFull() {
-		return cacheSize > keyValuePairs.size();
+	protected void displayKeyValuePairs() {
+		System.out.println(keyValuePairs.toString());
+	}
+
+	protected void setFrequencyNode(Integer key, ListNode node) {
+		frequencyNodes.put(key, node);
+	}
+
+	protected ListNode getFrequencyNode(Integer key) {
+		return frequencyNodes.get(key);
+	}
+
+	protected void removeFrequencyNode(Integer key) {
+		frequencyNodes.remove(key);
+	}
+
+	protected ListNode getHeadNode() {
+		return head;
+	}
+
+	protected void setHeadNode(ListNode node) {
+		head = node;
+	}
+
+	protected boolean isFull() {
+		return currentCacheSize >= maxCacheSize;
+	}
+
+	protected boolean isNotFull() {
+		return currentCacheSize < maxCacheSize;
 	}
 }
